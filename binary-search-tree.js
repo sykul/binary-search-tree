@@ -19,17 +19,22 @@ class Tree {
         } else {
           return 0;
         }
-      }
-    )
-  }
+      };
+    );
+  };
 
   buildTree() {
-    let midpoint = Math.ceil(this.array.length/2)
-    let midNode = this.array.splice(midpoint,1)
-    let rightSide = this.array.splice(midpoint)
+    let midpoint = Math.ceil(this.array.length/2);
+    let midNode = this.array.splice(midpoint,1);
+    let rightSide = this.array.splice(midpoint);
     let leftSide = this.array;
-    console.log(`${leftSide} ${midNode} ${rightSide}`)
-    return midNode
+    
+    if (leftSide.length === 1) {
+      
+    }
+
+    console.log(`${leftSide} ${midNode} ${rightSide}`);
+    return midNode;
   } 
 
   insert(value) {}
