@@ -1,4 +1,8 @@
-import { testTree } from "./binary-search-tree.js";
+import { prettyPrint, Tree } from "./binary-search-tree.js";
 
-console.log(testTree.array)
-console.log(testTree.buildTree())
+const testTree = new Tree([1, 7001, 7000, 2, 6, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+ 
+
+
+console.log(testTree.root);
+prettyPrint(testTree.root)
