@@ -58,13 +58,36 @@ class Tree {
       newNode.rightChild = null;
     }
 
-
-    console.log(`left: ${leftSide} mid: ${midNode} right: ${rightSide}`);
-
     return newNode;
-  } 
+  }
 
-  insert(value) {}
+  insert(valueToInsert, rootValue = null) {
+    let currentNode;
+    if (rootValue === null) {
+      currentNode = this.root;
+    } else {
+      currentNode = rootValue;
+    }
+    
+    if (currentNode.leftChild === null && currentNode.rightChild === null) {
+      if (valueToInsert < currentNode.data) {
+        currentNode.leftChild = new Node(valueToInsert);
+        return;
+      } else if (valueToInsert > currentNode.data) {
+        currentNode.rightChild = new Node(valueToInsert);
+        return;
+      }
+    }
+
+    if (valueToInsert < currentNode.data) {
+      currentNode = currentNode.leftChild;
+      this.insert(valueToInsert, currentNode);
+    } else if (valueToInsert > currentNode.data) {
+      currentNode = currentNode.rightChild;
+      this.insert(valueToInsert, currentNode);
+    }
+
+  }
 
   delete(value) {}
 
