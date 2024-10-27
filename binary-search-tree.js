@@ -68,13 +68,19 @@ class Tree {
     } else {
       currentNode = rootValue;
     }
-    
+
+    if (currentNode.data === valueToInsert) {
+      return;
+    }
+
     if (currentNode.leftChild === null && currentNode.rightChild === null) {
       if (valueToInsert < currentNode.data) {
         currentNode.leftChild = new Node(valueToInsert);
         return;
       } else if (valueToInsert > currentNode.data) {
         currentNode.rightChild = new Node(valueToInsert);
+        return;
+      } else {
         return;
       }
     }
@@ -89,7 +95,86 @@ class Tree {
 
   }
 
-  delete(value) {}
+  delete(valueToDelete, rootValue = null) {
+    let currentNode;
+    if (rootValue === null) {
+      currentNode = this.root;
+    } else {
+      currentNode = rootValue;
+    }
+
+    // If key found and the node is a leaf
+    if ( currentNode.leftChild !== null
+      && currentNode.leftChild.data === valueToDelete
+      && currentNode.leftChild.leftChild === null
+      && currentNode.leftChild.rightChild === null) {
+          currentNode.leftChild = null;
+          return;
+        }
+    if ( currentNode.rightChild !== null
+      && currentNode.rightChild.data === valueToDelete
+      && currentNode.rightChild.leftChild === null
+      && currentNode.rightChild.rightChild === null) {
+          currentNode.rightChild = null;
+          return;
+        }
+    
+    // If key found and node has one child
+     if (currentNode.rightChild !== null
+      && currentNode.rightChild.data === valueToDelete) {
+
+      if (currentNode.rightChild.leftChild === null && currentNode.rightChild.rightChild !== null) {
+        currentNode.rightChild = currentNode.rightChild.rightChild;
+        return;
+      }
+
+      if (currentNode.rightChild.leftChild !== null
+        && currentNode.rightChild.rightChild === null) {
+        currentNode.rightChild = currentNode.rightChild.leftChild;
+        return;
+      }
+    }
+
+    if (currentNode.leftChild !== null
+      && currentNode.leftChild.data === valueToDelete) {
+
+      if (currentNode.leftChild.leftChild === null && currentNode.leftChild.rightChild !== null) {
+        currentNode.leftChild = currentNode.leftChild.rightChild;
+        return;
+      }
+      if (currentNode.leftChild.leftChild !== null && currentNode.leftChild.rightChild === null) {
+        currentNode.leftChild = currentNode.leftChild.leftChild;
+        return;
+      }
+    }
+
+    // If key found and node has two children
+    function findSuccessorParent(node) {
+      if ( node.leftChild.leftChild === null ) {
+        return node;
+      } else {
+        node = node.leftChild;
+        return findSuccessorParent(node);
+      }
+    }
+
+    if (currentNode.data === valueToDelete
+      && currentNode.leftChild !== null 
+      && currentNode.rightChild !== null) {
+        let successorParent = findSuccessorParent(currentNode.rightChild);
+        currentNode.data = successorParent.leftChild.data;
+        successorParent.leftChild = null;
+        return;
+    }
+
+    if (valueToDelete < currentNode.data) {
+      currentNode = currentNode.leftChild;
+      this.delete(valueToDelete, currentNode);
+    } else if (valueToDelete > currentNode.data) {
+      currentNode = currentNode.rightChild;
+      this.delete(valueToDelete, currentNode);
+    }
+  }
 
   find(value) {}
 
