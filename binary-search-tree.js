@@ -176,7 +176,30 @@ class Tree {
     }
   }
 
-  find(value) {}
+  find(searchValue, rootValue = null) {
+    let currentNode;
+    if (rootValue === null) {
+      currentNode = this.root;
+    } else {
+      currentNode = rootValue;
+    }
+
+    if (currentNode.data === searchValue) {
+      return currentNode;
+    }
+
+    if (currentNode.leftChild === null && currentNode.rightChild === null) {
+      return null;
+    }
+
+    if (searchValue < currentNode.data) {
+      currentNode = currentNode.leftChild;
+      return this.find(searchValue, currentNode);
+    } else if (searchValue > currentNode.data) {
+      currentNode = currentNode.rightChild;
+      return this.find(searchValue, currentNode);
+    }
+  }
 
   levelOrder(callback) {}
 
