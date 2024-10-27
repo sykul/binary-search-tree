@@ -202,15 +202,14 @@ class Tree {
   }
 
   levelOrder(callback) {
-    if (callback instanceof Function) {
-      console.log('yes')
-    } else {
+    if (!callback instanceof Function) {
       throw new Error('Parameter is not a function!');
     }
 
     if (this.root === null) {
       return;
     }
+
     let queue = [];
     queue.push(this.root);
     while(queue.length > 0) {
@@ -225,7 +224,20 @@ class Tree {
     }
   }
 
-  inOrder(callback) {}
+  inOrder(callback, rootValue = this.root) {
+    if (!callback instanceof Function) {
+      throw new Error('Parameter is not a function!');
+    }
+
+    if (rootValue === null) {
+      return;
+    }
+
+    let currentNode = rootValue;
+      this.inOrder(callback, currentNode.leftChild);
+      callback(currentNode.data)
+      this.inOrder(callback, currentNode.rightChild)
+  }
 
   preOrder(callback) {}
 
