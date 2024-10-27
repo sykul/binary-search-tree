@@ -269,7 +269,22 @@ class Tree {
     callback(currentNode.data);
   }
 
-  height(node) {}
+  height(node) {
+    if (node === null) {
+      return 0;
+    }
+
+    if (node.leftChild === null && node.rightChild === null) {
+      return 0;
+    } else if (node.leftChild === null && node.rightChild !== null) {
+      this.height(node.rightChild)
+    } else if (node.leftChild !== null && node.rightChild === null) {
+      this.height(node.leftChild)
+    }
+
+    return (Math.max(this.height(node.leftChild), this.height(node.rightChild)) + 1)
+
+  }
 
   isBalanced() {}
 
