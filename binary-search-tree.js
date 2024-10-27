@@ -234,14 +234,40 @@ class Tree {
     }
 
     let currentNode = rootValue;
-      this.inOrder(callback, currentNode.leftChild);
-      callback(currentNode.data)
-      this.inOrder(callback, currentNode.rightChild)
+    this.inOrder(callback, currentNode.leftChild);
+    callback(currentNode.data);
+    this.inOrder(callback, currentNode.rightChild);
   }
 
-  preOrder(callback) {}
+  preOrder(callback, rootValue = this.root) {
+    if (!callback instanceof Function) {
+      throw new Error('Parameter is not a function!');
+    }
 
-  postOrder(callback) {}
+    if (rootValue === null) {
+      return;
+    }
+
+    let currentNode = rootValue;
+    callback(currentNode.data);
+    this.preOrder(callback, currentNode.leftChild);
+    this.preOrder(callback, currentNode.rightChild);
+  }
+
+  postOrder(callback, rootValue = this.root) {
+    if (!callback instanceof Function) {
+      throw new Error('Parameter is not a function!');
+    }
+
+    if (rootValue === null) {
+      return;
+    }
+
+    let currentNode = rootValue;
+    this.postOrder(callback, currentNode.leftChild);
+    this.postOrder(callback, currentNode.rightChild);
+    callback(currentNode.data);
+  }
 
   height(node) {}
 
