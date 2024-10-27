@@ -283,7 +283,32 @@ class Tree {
     }
 
     return (Math.max(this.height(node.leftChild), this.height(node.rightChild)) + 1)
+  }
 
+  depth(node, rootValue = this.root) {
+    if (node === null) {
+      return 0;
+    }
+
+
+
+    if (node.data === rootValue.data) {
+      return currentNode;
+    }
+
+    if (currentNode.leftChild === null && currentNode.rightChild === null) {
+      return null;
+    }
+
+    if (searchValue < currentNode.data) {
+      currentNode = currentNode.leftChild;
+      return this.find(searchValue, currentNode);
+    } else if (searchValue > currentNode.data) {
+      currentNode = currentNode.rightChild;
+      return this.find(searchValue, currentNode);
+    }
+
+    return (Math.max(this.height(node.leftChild), this.height(node.rightChild)) + 1)
   }
 
   isBalanced() {}
