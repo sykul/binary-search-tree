@@ -287,28 +287,25 @@ class Tree {
 
   depth(node, rootValue = this.root) {
     if (node === null) {
-      return 0;
-    }
-
-
-
-    if (node.data === rootValue.data) {
-      return currentNode;
-    }
-
-    if (currentNode.leftChild === null && currentNode.rightChild === null) {
       return null;
     }
 
-    if (searchValue < currentNode.data) {
-      currentNode = currentNode.leftChild;
-      return this.find(searchValue, currentNode);
-    } else if (searchValue > currentNode.data) {
-      currentNode = currentNode.rightChild;
-      return this.find(searchValue, currentNode);
+    if (node.data === rootValue.data) {
+      return 0;
     }
 
-    return (Math.max(this.height(node.leftChild), this.height(node.rightChild)) + 1)
+    if (rootValue.leftChild === null && rootValue.rightChild === null
+      && rootValue.data !== node.data) {
+      return null;
+    }
+
+    if (rootValue.leftChild !== null && rootValue.data > node.data) {
+      rootValue = rootValue.leftChild;
+    } else if (rootValue.data < node.data) {
+      rootValue = rootValue.rightChild;
+    }
+
+    return (this.depth(node, rootValue) + 1)
   }
 
   isBalanced() {}
