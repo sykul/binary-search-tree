@@ -176,13 +176,8 @@ class Tree {
     }
   }
 
-  find(searchValue, rootValue = null) {
-    let currentNode;
-    if (rootValue === null) {
-      currentNode = this.root;
-    } else {
-      currentNode = rootValue;
-    }
+  find(searchValue, rootValue = this.root) {
+    let currentNode = rootValue;
 
     if (currentNode.data === searchValue) {
       return currentNode;
