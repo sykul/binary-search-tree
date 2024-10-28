@@ -61,13 +61,8 @@ class Tree {
     return newNode;
   }
 
-  insert(valueToInsert, rootValue = null) {
-    let currentNode;
-    if (rootValue === null) {
-      currentNode = this.root;
-    } else {
-      currentNode = rootValue;
-    }
+  insert(valueToInsert, rootValue = this.root) {
+    let currentNode = rootValue;
 
     if (currentNode.data === valueToInsert) {
       return;
@@ -95,13 +90,8 @@ class Tree {
 
   }
 
-  delete(valueToDelete, rootValue = null) {
-    let currentNode;
-    if (rootValue === null) {
-      currentNode = this.root;
-    } else {
-      currentNode = rootValue;
-    }
+  delete(valueToDelete, rootValue = this.root) {
+    let currentNode = rootValue;
 
     // If key found and the node is a leaf
     if ( currentNode.leftChild !== null
@@ -303,7 +293,9 @@ class Tree {
     return (this.depth(node, rootValue) + 1)
   }
 
-  isBalanced() {}
+  isBalanced() {
+
+  }
 
   rebalance() {}
 
