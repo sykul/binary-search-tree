@@ -293,8 +293,23 @@ class Tree {
     return (this.depth(node, rootValue) + 1)
   }
 
-  isBalanced() {
+  isBalanced(node = this.root, balanced = true) {
+    if (balanced === false) {
+      return false;
+    }
 
+    if (node === null || node.leftChild === null && node.rightChild === null) {
+      return true;
+    }
+
+    let leftHeight = this.height(node.leftChild)
+    let rightHeight = this.height(node.rightChild)
+
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      return false;
+    } else  {
+      return [this.isBalanced(node.leftChild, balanced),this.isBalanced(node.rightChild, balanced)].every((e) => (e) === true);
+    }
   }
 
   rebalance() {}
