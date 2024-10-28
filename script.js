@@ -1,14 +1,21 @@
 import { prettyPrint, Tree } from "./binary-search-tree.js";
+import { randomArray } from "./test-functions.js";
 
-const testTree = new Tree([1, 2, 6, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+const testArray = randomArray()
+console.log(testArray)
+const testTree = new Tree(testArray)
  
 
 
 prettyPrint(testTree.root)
-testTree.delete(6)
-testTree.delete(5)
-testTree.delete(1)
-testTree.delete(3)
+testTree.insert(101)
+testTree.insert(102)
+testTree.insert(103)
+testTree.insert(104)
+testTree.insert(105)
+testTree.insert(106)
 prettyPrint(testTree.root)
 
 console.log(testTree.isBalanced())
+testTree.rebalance()
+prettyPrint(testTree.root)

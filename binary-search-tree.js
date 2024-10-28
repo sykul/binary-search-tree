@@ -64,7 +64,7 @@ class Tree {
   insert(valueToInsert, rootValue = this.root) {
     let currentNode = rootValue;
 
-    if (currentNode.data === valueToInsert) {
+    if (currentNode === null || currentNode.data === valueToInsert) {
       return;
     }
 
@@ -92,6 +92,14 @@ class Tree {
 
   delete(valueToDelete, rootValue = this.root) {
     let currentNode = rootValue;
+
+    // If key not found
+    if (currentNode === null
+      || (currentNode.leftChild === null && currentNode.rightChild === null
+      && currentNode.data !== valueToDelete)) {
+        return;
+      }
+    
 
     // If key found and the node is a leaf
     if ( currentNode.leftChild !== null
@@ -138,6 +146,7 @@ class Tree {
       }
     }
 
+
     // If key found and node has two children
     function findSuccessorParent(node) {
       if ( node.leftChild.leftChild === null ) {
@@ -147,6 +156,8 @@ class Tree {
         return findSuccessorParent(node);
       }
     }
+
+
 
     if (currentNode.data === valueToDelete
       && currentNode.leftChild !== null 
@@ -312,7 +323,11 @@ class Tree {
     }
   }
 
-  rebalance() {}
+  rebalance() {
+    let orderedArray = [];
+    this.inOrder((n) => orderedArray.push(n));
+    this.root = this.buildTree(orderedArray);
+  }
 
 }
 
